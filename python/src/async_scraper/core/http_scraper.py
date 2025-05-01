@@ -69,7 +69,7 @@ class HttpScraper(BaseScraper):
                     if response.status == 429:  # Too Many Requests
                         self.logger.warning(f"Rate limited (429) for {url}")
                         if proxy and self.proxy_manager:
-                            await self.proxy_manager.report_proxy_failure(proxy)
+                            self.proxy_manager.report_proxy_failure(proxy)
                         wait_time = 5 + attempt * 10
                         self.logger.info(f"Waiting {wait_time}s before retry")
                         await asyncio.sleep(wait_time)
@@ -78,19 +78,19 @@ class HttpScraper(BaseScraper):
                     if response.status == 403:  # Forbidden
                         self.logger.warning(f"Access forbidden (403) for {url}")
                         if proxy and self.proxy_manager:
-                            await self.proxy_manager.report_proxy_failure(proxy)
+                            self.proxy_manager.report_proxy_failure(proxy)
                         await asyncio.sleep(self.retry_delay)
                         continue
                     
                     # Other errors
                     self.logger.error(f"HTTP error {response.status} for {url}")
                     if proxy and self.proxy_manager:
-                        await self.proxy_manager.report_proxy_failure(proxy)
+                        self.proxy_manager.report_proxy_failure(proxy)
             
             except (aiohttp.ClientError, asyncio.TimeoutError) as e:
                 self.logger.error(f"Request error for {url}: {str(e)}")
                 if proxy and self.proxy_manager:
-                    await self.proxy_manager.report_proxy_failure(proxy)
+                    self.proxy_manager.report_proxy_failure(proxy)
             
             # Retry after random time
             retry_delay = self.retry_delay * (1 + attempt * 0.5)
@@ -99,3 +99,8 @@ class HttpScraper(BaseScraper):
         
         self.logger.error(f"Max retries reached for {url}")
         return None
+
+    def set_scraper(self, parser, storage, proxy_manager):
+        self.set_parser(parser)
+        self.set_storage(storage)
+        self.set_proxy_manager(proxy_manager)

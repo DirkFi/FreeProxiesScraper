@@ -140,8 +140,8 @@ async def main():
     all_urls = team_urls + player_urls
     
     # 创建代理管理器
-    proxy_provider = FreeProxyProvider(check_url="https://www.basketball-reference.com")
-    proxy_manager = ProxyManager(providers=[proxy_provider])
+    # proxy_provider = FreeProxyProvider(check_url="https://www.basketball-reference.com", country="CA")
+    proxy_manager = ProxyManager(check_url="https://www.basketball-reference.com")
     
     # 创建爬虫
     scraper = HttpScraper(config={
@@ -149,18 +149,16 @@ async def main():
         'retry_delay': 2,
         'timeout': 10
     })
-    scraper.set_proxy_manager(proxy_manager)
     
     # 创建解析器 (URL作为参数传递给解析函数)
     parser = HtmlParser(parse_func=my_custom_parse_function)
-    scraper.set_parser(parser)
     
     # 创建团队和球员数据的存储
     team_storage = CsvStorage('team_data.csv')
     player_storage = CsvStorage('player_data.csv')
     
     # 先设置团队数据存储
-    scraper.set_storage(team_storage)
+    scraper.set_scraper(parser, team_storage, proxy_manager)
     
     # 分别爬取团队数据和球员数据
     logger.info("开始爬取NBA团队数据...")
@@ -168,6 +166,7 @@ async def main():
     
     # 团队数据爬取
     for url in team_urls:
+        # TODO: wrap this piece of code to a convenient function
         logger.info(f"爬取URL: {url}")
         # 为每次爬取提供URL作为额外参数
         result = await scraper.fetch(url)
