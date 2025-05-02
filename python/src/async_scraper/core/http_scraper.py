@@ -1,16 +1,18 @@
 import aiohttp
 import asyncio
 import random
-from typing import Dict, Any, Optional, List, Union
-import time
 
+from typing import Dict, Any, Optional, Callable
 from .base_scraper import BaseScraper
 from ..proxy.proxy_manager import ProxyManager
 from ..utils.user_agent import UserAgentManager
+from ..parser.html_parser import HtmlParser
+from ..storage.csv_storage import CsvStorage
 
 class HttpScraper(BaseScraper):
     
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
+    def __init__(self, parse_func=None, save_file="tmp.csv", check_url="https://google.com/", countries=["US", "CA"],
+                 config: Optional[Dict[str, Any]] = None):
         """
         Args:
             config: Config dict including parameters:
@@ -26,6 +28,7 @@ class HttpScraper(BaseScraper):
         self.headers = self.config.get('headers', {})
         self.user_agent_manager = UserAgentManager()
         self.session = None
+        self.initialize_scraper(parse_func, save_file, check_url)
     
     async def _ensure_session(self):
         if self.session is None or self.session.closed:
@@ -104,3 +107,13 @@ class HttpScraper(BaseScraper):
         self.set_parser(parser)
         self.set_storage(storage)
         self.set_proxy_manager(proxy_manager)
+
+    def initialize_scraper(self, parse_func:Optional[Callable], save_file, check_url):
+        # TODO: parser is none, return the whole page
+        parser = HtmlParser(parse_func=parse_func)
+        storage = CsvStorage(file_path=save_file)
+        proxy_manager = ProxyManager(check_url)
+        self.set_parser(parser)
+        self.set_storage(storage)
+        self.set_proxy_manager(proxy_manager)
+
