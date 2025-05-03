@@ -7,7 +7,7 @@ from async_scraper.proxy.proxy_manager import ProxyManager
 from async_scraper.proxy.free_proxy_provider import FreeProxyProvider
 from async_scraper.parser.html_parser import HtmlParser
 from async_scraper.storage.csv_storage import CsvStorage
-
+from typing import Any, List, Dict, Optional
 # 设置日志
 logging.basicConfig(
     level=logging.INFO,
@@ -19,21 +19,21 @@ logging.basicConfig(
 logger = logging.getLogger("NBA_Scraper")
 
 # 自定义NBA团队数据解析函数
-async def parse_team_data(soup, year):
-    """解析NBA团队数据"""
-    team_data = []
+def parse_team_data(soup: BeautifulSoup, year: int) -> List[Dict[str, Any]]:
+    """解析 NBA 团队数据（同步版）"""
+    team_data: List[Dict[str, Any]] = []
     table = soup.find('table', {'id': 'advanced-team'})
-    
+
     if not table:
         logger.warning(f"No team table found for {year}")
         return team_data
-    
+
     rows = table.find_all('tr')
     for row in rows[2:]:  # 跳过标题行
         cols = row.find_all('td')
         if not cols:
-            continue  # 跳过无效行
-        
+            continue
+
         try:
             team = {
                 'year': year,
@@ -46,30 +46,31 @@ async def parse_team_data(soup, year):
             }
             team_data.append(team)
         except Exception as e:
-            logger.error(f"Error parsing team row: {e}")
-    
+            logger.error(f"Error parsing team row for {year}: {e}")
+
     return team_data
 
-# 自定义NBA球员数据解析函数
-async def parse_player_data(soup, team):
-    """解析NBA球员数据"""
-    player_data = []
+
+# 同步版：解析 NBA 球员数据
+def parse_player_data(soup: BeautifulSoup, team: str) -> List[Dict[str, Any]]:
+    """解析 NBA 球员数据（同步版）"""
+    player_data: List[Dict[str, Any]] = []
     table = soup.find('table', {'id': 'per_game_stats'})
-    
+
     if not table:
         logger.warning(f"No player table found for {team}")
         return player_data
-    
+
     rows = table.find_all('tr')
     for row in rows[1:]:  # 跳过标题行
         cols = row.find_all('td')
         if not cols:
-            continue  # 跳过无效行
-        
+            continue
+
         try:
             player = {
                 'team': team,
-                'year': 2025,  # 假设是当前赛季
+                'year': 2025,  # 假设当前赛季
                 'name': cols[0].text.strip(),
                 'position': cols[2].text.strip() if len(cols) > 2 else "",
                 'minutes_per_game': cols[5].text.strip() if len(cols) > 5 else "",
@@ -81,43 +82,43 @@ async def parse_player_data(soup, team):
             }
             player_data.append(player)
         except Exception as e:
-            logger.error(f"Error parsing player row: {e}")
-    
+            logger.error(f"Error parsing player row for {team}: {e}")
+
     return player_data
 
-# 自定义解析函数，根据URL选择合适的解析方法
-async def my_custom_parse_function(soup, url=None):
+
+# 同步版：根据 URL 选择解析函数
+def my_custom_parse_function(soup: BeautifulSoup, url: Optional[str] = None) -> List[Dict[str, Any]]:
     """
-    根据URL选择合适的解析方法
-    
+    根据 URL 选择合适的解析方法（同步版）
+
     Args:
-        soup: BeautifulSoup对象
-        url: 目标URL
-        
+        soup: BeautifulSoup 对象
+        url: 目标页面 URL
+
     Returns:
-        解析后的数据
+        解析后的数据列表
     """
     if not url:
         logger.warning("No URL provided for parsing")
         return []
-    
-    # 判断URL类型并选择合适的解析方法
+
     if "leagues/NBA" in url:
-        # 从URL中提取年份
         try:
             year = int(url.split("NBA_")[1].split(".")[0])
-            return await parse_team_data(soup, year)
+            return parse_team_data(soup, year)
         except Exception as e:
-            logger.error(f"Error extracting year from URL: {e}")
+            logger.error(f"Error extracting year from URL '{url}': {e}")
             return []
+
     elif "/teams/" in url:
-        # 从URL中提取球队缩写
         try:
             team = url.split("/teams/")[1].split("/")[0]
-            return await parse_player_data(soup, team)
+            return parse_player_data(soup, team)
         except Exception as e:
-            logger.error(f"Error extracting team from URL: {e}")
+            logger.error(f"Error extracting team from URL '{url}': {e}")
             return []
+
     else:
         logger.warning(f"Unknown URL pattern: {url}")
         return []
@@ -130,12 +131,9 @@ async def main():
                  for year in range(2020, 2026)]
     
     # 球员数据URL (各队2025赛季)
-    TEAMS = ['ATL', 'BOS', 'BRK', 'CHI', 'CHO', 'CLE', 'DAL', 'DEN', 'DET', 'GSW', 
-             'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'MIL', 'MIN', 'NOP', 'NYK', 
-             'OKC', 'ORL', 'PHI', 'PHO', 'POR', 'SAC', 'SAS', 'TOR', 'UTA', 'WAS']
+    TEAMS = ['ATL', 'BOS']
     player_urls = [f"https://www.basketball-reference.com/teams/{team}/2025.html" 
                   for team in TEAMS]
-    
     # 创建爬虫
     scraper = HttpScraper(parse_func=my_custom_parse_function, save_file='team_data.csv', 
                           check_url="https://www.basketball-reference.com",
@@ -147,66 +145,41 @@ async def main():
     
     player_storage = CsvStorage('player_data.csv')
     
-    logger.info("开始爬取NBA团队数据...")
-    team_results = []
-    
-    # 团队数据爬取
-    for url in team_urls:
-        # TODO: wrap this piece of code to a convenient function
-        logger.info(f"爬取URL: {url}")
-        # 为每次爬取提供URL作为额外参数
-        result = await scraper.fetch(url)
-        if result:
-            soup = BeautifulSoup(result, 'html.parser')
-            data = await my_custom_parse_function(soup, url)
-            if data:
-                team_results.extend(data)
-                logger.info(f"成功从 {url} 解析了 {len(data)} 条团队记录")
-    
-    # 保存团队数据
-    if team_results:
-        await scraper.storage.save(team_results)
-        logger.info(f"保存了 {len(team_results)} 条团队数据记录")
+    # logger.info("开始爬取NBA团队数据...")
+    # team_results = []
+    #
+    # # 团队数据爬取
+    # for url in team_urls:
+    #     # TODO: wrap this piece of code to a convenient function
+    #     logger.info(f"爬取URL: {url}")
+    #     # 为每次爬取提供URL作为额外参数
+    #     result = await scraper.fetch(url)
+    #     if result:
+    #         soup = BeautifulSoup(result, 'html.parser')
+    #         data = await scraper.parser.parse(result)
+    #         if data:
+    #             team_results.extend(data)
+    #             logger.info(f"成功从 {url} 解析了 {len(data)} 条团队记录")
+    #
+    # # 保存团队数据
+    # if team_results:
+    #     await scraper.storage.save(team_results)
+    #     logger.info(f"保存了 {len(team_results)} 条团队数据记录")
     
     # 切换到球员数据存储
     scraper.set_storage(player_storage)
-    
+
     # 使用并发爬取球员数据
     logger.info("开始爬取NBA球员数据...")
-    player_results = []
-    
-    # 创建爬取任务，限制并发为5
-    concurrency = 5
-    semaphore = asyncio.Semaphore(concurrency)
-    
-    async def fetch_with_semaphore(url):
-        async with semaphore:
-            logger.info(f"爬取URL: {url}")
-            result = await scraper.fetch(url)
-            if result:
-                soup = BeautifulSoup(result, 'html.parser')
-                data = await my_custom_parse_function(soup, url)
-                if data:
-                    logger.info(f"成功从 {url} 解析了 {len(data)} 条球员记录")
-                    return data
-            return []
-    
-    # 创建并发任务
-    tasks = [fetch_with_semaphore(url) for url in player_urls]
-    player_data_lists = await asyncio.gather(*tasks)
-    
-    # 合并所有球员数据
-    for data_list in player_data_lists:
-        player_results.extend(data_list)
-    
-    # 保存球员数据
-    if player_results:
-        await player_storage.save(player_results)
-        logger.info(f"保存了 {len(player_results)} 条球员数据记录")
-    
-    # 关闭资源
-    await scraper.close()
-    logger.info("爬取完成!")
+    try:
+        data_with_urls = await scraper.get_parsed_data(urls=player_urls)
+        all_players = [item for sublist in data_with_urls for item in sublist]
+        if all_players:
+            await player_storage.save(all_players)
+            scraper.logger.info(f"共保存球员数据 {len(all_players)} 条")
+    finally:
+        # ▶ 保证 session 会被关闭
+        await scraper.close()
 
 # 运行主函数
 if __name__ == "__main__":

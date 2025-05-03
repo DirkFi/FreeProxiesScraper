@@ -68,7 +68,7 @@ class FreeProxyProvider(ProxyProvider):
                             port = cols[1].text.strip()
                             code = cols[2].text.strip()
                             https = cols[6].text.strip()
-                            if https == 'yes' and code == self.country:
+                            if code == self.country:
                                 proxy = f"http://{ip}:{port}"
                                 proxies.append(proxy)
                     

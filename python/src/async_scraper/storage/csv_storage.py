@@ -41,6 +41,7 @@ class CsvStorage(BaseStorage):
         # 如果没有提供列名，则使用第一个字典的键作为列名
         if not self.fieldnames and isinstance(data[0], dict):
             self.fieldnames = list(data[0].keys())
+        print("data[0] keys are", self.fieldnames)
         
         loop = asyncio.get_event_loop()
         try:

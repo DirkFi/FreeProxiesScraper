@@ -1,6 +1,7 @@
 import aiohttp
 import asyncio
 import random
+import time
 
 from typing import Dict, Any, Optional, Callable
 from .base_scraper import BaseScraper
@@ -11,8 +12,8 @@ from ..storage.csv_storage import CsvStorage
 
 class HttpScraper(BaseScraper):
     
-    def __init__(self, parse_func=None, save_file="tmp.csv", check_url="https://google.com/", countries=["US", "CA"],
-                 config: Optional[Dict[str, Any]] = None):
+    def __init__(self, config: Optional[Dict[str, Any]] = None,
+                 parse_func=None, save_file="tmp.csv", check_url="https://google.com/", countries=["US", "CA"]):
         """
         Args:
             config: Config dict including parameters:
@@ -28,7 +29,7 @@ class HttpScraper(BaseScraper):
         self.headers = self.config.get('headers', {})
         self.user_agent_manager = UserAgentManager()
         self.session = None
-        self.initialize_scraper(parse_func, save_file, check_url)
+        self.initialize_scraper(parse_func, save_file, check_url, countries)
     
     async def _ensure_session(self):
         if self.session is None or self.session.closed:
@@ -98,7 +99,7 @@ class HttpScraper(BaseScraper):
             # Retry after random time
             retry_delay = self.retry_delay * (1 + attempt * 0.5)
             retry_delay += random.uniform(0, 1)
-            await asyncio.sleep(retry_delay)
+            time.sleep(retry_delay)
         
         self.logger.error(f"Max retries reached for {url}")
         return None
@@ -108,12 +109,24 @@ class HttpScraper(BaseScraper):
         self.set_storage(storage)
         self.set_proxy_manager(proxy_manager)
 
-    def initialize_scraper(self, parse_func:Optional[Callable], save_file, check_url):
-        # TODO: parser is none, return the whole page
+    def initialize_scraper(self, parse_func:Optional[Callable], save_file, check_url, countries):
         parser = HtmlParser(parse_func=parse_func)
         storage = CsvStorage(file_path=save_file)
-        proxy_manager = ProxyManager(check_url)
+        proxy_manager = ProxyManager(check_url, countries)
         self.set_parser(parser)
         self.set_storage(storage)
         self.set_proxy_manager(proxy_manager)
 
+    async def get_parsed_data(self, urls, *args, **kwargs):
+        semaphore = asyncio.Semaphore(5)
+        async def fetch_and_parse(url: str):
+            async with semaphore:
+                html = await self.fetch(url)
+                if not html:
+                    return []
+                data = await self.parser.parse(html, url, *args, **kwargs)
+                return data or []
+
+        tasks = [fetch_and_parse(u) for u in urls]
+        results = await asyncio.gather(*tasks)
+        return dict(zip(urls, results))
