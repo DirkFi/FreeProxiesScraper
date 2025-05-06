@@ -118,6 +118,10 @@ class HttpScraper(BaseScraper):
         self.set_proxy_manager(proxy_manager)
 
     async def get_parsed_data(self, urls, *args, **kwargs):
+        """
+        Return: Prased Data structured as 
+            {url: [json1, json2, ...], url2: [json3, json4, ...], ...}
+        """
         semaphore = asyncio.Semaphore(5)
         async def fetch_and_parse(url: str):
             async with semaphore:

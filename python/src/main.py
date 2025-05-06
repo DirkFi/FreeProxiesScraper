@@ -3,9 +3,6 @@ import logging
 import sys
 from bs4 import BeautifulSoup
 from async_scraper.core.http_scraper import HttpScraper
-from async_scraper.proxy.proxy_manager import ProxyManager
-from async_scraper.proxy.free_proxy_provider import FreeProxyProvider
-from async_scraper.parser.html_parser import HtmlParser
 from async_scraper.storage.csv_storage import CsvStorage
 from typing import Any, List, Dict, Optional
 # 设置日志
@@ -131,7 +128,7 @@ async def main():
                  for year in range(2020, 2026)]
     
     # 球员数据URL (各队2025赛季)
-    TEAMS = ['ATL', 'BOS']
+    TEAMS = ['BOS']
     player_urls = [f"https://www.basketball-reference.com/teams/{team}/2025.html" 
                   for team in TEAMS]
     # 创建爬虫
@@ -145,35 +142,21 @@ async def main():
     
     player_storage = CsvStorage('player_data.csv')
     
-    # logger.info("开始爬取NBA团队数据...")
-    # team_results = []
+    logger.info("开始爬取NBA团队数据...")
+    team_results = []
     #
-    # # 团队数据爬取
-    # for url in team_urls:
-    #     # TODO: wrap this piece of code to a convenient function
-    #     logger.info(f"爬取URL: {url}")
-    #     # 为每次爬取提供URL作为额外参数
-    #     result = await scraper.fetch(url)
-    #     if result:
-    #         soup = BeautifulSoup(result, 'html.parser')
-    #         data = await scraper.parser.parse(result)
-    #         if data:
-    #             team_results.extend(data)
-    #             logger.info(f"成功从 {url} 解析了 {len(data)} 条团队记录")
-    #
-    # # 保存团队数据
-    # if team_results:
-    #     await scraper.storage.save(team_results)
-    #     logger.info(f"保存了 {len(team_results)} 条团队数据记录")
-    
+    # 团队数据爬取
+    all_teams = await scraper.get_parsed_data(team_urls)
+    if all_teams:
+        await scraper.storage.save(all_teams)
+
     # 切换到球员数据存储
     scraper.set_storage(player_storage)
 
     # 使用并发爬取球员数据
     logger.info("开始爬取NBA球员数据...")
     try:
-        data_with_urls = await scraper.get_parsed_data(urls=player_urls)
-        all_players = [item for sublist in data_with_urls for item in sublist]
+        all_players = await scraper.get_parsed_data(urls=player_urls)
         if all_players:
             await player_storage.save(all_players)
             scraper.logger.info(f"共保存球员数据 {len(all_players)} 条")

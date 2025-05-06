@@ -6,7 +6,9 @@ from typing import List, Dict, Any, Optional
 from .base_storage import BaseStorage
 
 class CsvStorage(BaseStorage):
-    """CSV存储实现"""
+    """
+    CSV Storage implementation for cases when fieldnames are decided
+    """
     
     def __init__(self, file_path: str, fieldnames: Optional[List[str]] = None, mode: str = "a"):
         """
@@ -35,9 +37,9 @@ class CsvStorage(BaseStorage):
             return False
         
         # 确保数据是列表形式
-        if not isinstance(data, list):
-            data = [data]
-        
+        if isinstance(data, dict):
+            data = [item for lst in data.values() for item in lst]
+        print(data) 
         # 如果没有提供列名，则使用第一个字典的键作为列名
         if not self.fieldnames and isinstance(data[0], dict):
             self.fieldnames = list(data[0].keys())
