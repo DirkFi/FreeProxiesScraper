@@ -1,22 +1,25 @@
 import aiohttp
 import asyncio
+import logging
 from bs4 import BeautifulSoup
 from typing import List
-import logging
 
 from .proxy_provider import ProxyProvider
 from ..utils.user_agent import UserAgentManager
 
 class FreeProxyProvider(ProxyProvider):
-    """从免费代理网站获取代理"""
+    """
+    Retrieve proxies from a free proxy website.
+    """
     
-    def __init__(self, url="https://www.free-proxy-list.net/", check_url="https://www.google.com", country="US"):
+    def __init__(self, url: str = "https://www.free-proxy-list.net/", check_url: str = "https://www.google.com", country: str = "US"):
         """
-        初始化免费代理提供者
+        Initialize the free proxy provider.
         
         Args:
-            url: 代理列表网站URL
-            check_url: 用于验证代理的URL
+            url: URL of the proxy listing website.
+            check_url: URL used to verify proxies.
+            country: Country code to filter proxies by.
         """
         self.url = url
         self.check_url = check_url
@@ -26,10 +29,10 @@ class FreeProxyProvider(ProxyProvider):
     
     async def get_proxies(self) -> List[str]:
         """
-        获取并验证免费代理
+        Fetch and validate free proxies.
         
         Returns:
-            可用代理URL列表
+            List[str]: List of valid proxy URLs.
         """
         raw_proxies = await self._scrape_proxies()
         valid_proxies = await self._validate_proxies(raw_proxies)
@@ -38,10 +41,10 @@ class FreeProxyProvider(ProxyProvider):
     
     async def _scrape_proxies(self) -> List[str]:
         """
-        从代理网站抓取代理
+        Scrape proxies from the proxy listing website.
         
         Returns:
-            代理URL列表
+            List[str]: List of proxy URLs.
         """
         try:
             headers = {"User-Agent": self.user_agent_manager.get_random()}
@@ -55,7 +58,7 @@ class FreeProxyProvider(ProxyProvider):
                     soup = BeautifulSoup(html, "html.parser")
                     proxies = []
                     
-                    # 适用于free-proxy-list.net的解析逻辑
+                    # Parsing logic for free-proxy-list.net
                     table = soup.find("table", {"class": "table-striped"})
                     if not table:
                         self.logger.error("Proxy table not found")
@@ -77,36 +80,36 @@ class FreeProxyProvider(ProxyProvider):
             self.logger.error(f"Error scraping proxies: {e}")
             return []
     
-    async def _validate_proxies(self, proxies: List[str], timeout=5, concurrent=10) -> List[str]:
+    async def _validate_proxies(self, proxies: List[str], timeout: int = 5, concurrent: int = 10) -> List[str]:
         """
-        验证代理是否可用
+        Validate proxies to ensure they are usable.
         
         Args:
-            proxies: 代理URL列表
-            timeout: 验证超时时间（秒）
-            concurrent: 并发验证数量
-            
+            proxies: List of proxy URLs to validate.
+            timeout: Timeout in seconds for each proxy check.
+            concurrent: Number of concurrent validation requests.
+        
         Returns:
-            可用代理URL列表
+            List[str]: List of valid proxy URLs.
         """
-        valid_proxies = []
+        valid_proxies: List[str] = []
         semaphore = asyncio.Semaphore(concurrent)
         
-        async def _check_proxy(proxy):
+        async def _check_proxy(proxy: str) -> Optional[str]:
             async with semaphore:
                 try:
                     headers = {"User-Agent": self.user_agent_manager.get_random()}
                     async with aiohttp.ClientSession() as session:
                         async with session.get(
-                            self.check_url, 
-                            proxy=proxy, 
+                            self.check_url,
+                            proxy=proxy,
                             timeout=aiohttp.ClientTimeout(total=timeout),
                             headers=headers
                         ) as response:
                             if response.status == 200:
                                 self.logger.debug(f"Valid proxy: {proxy}")
                                 return proxy
-                except:
+                except Exception:
                     pass
                 return None
         

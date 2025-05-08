@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from async_scraper.core.http_scraper import HttpScraper
 from async_scraper.storage.csv_storage import CsvStorage
 from typing import Any, List, Dict, Optional
+
 # 设置日志
 logging.basicConfig(
     level=logging.INFO,

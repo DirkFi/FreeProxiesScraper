@@ -2,30 +2,30 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 class BaseStorage(ABC):
-    """存储基类"""
+    """BaseStorage Class"""
     
     @abstractmethod
     async def save(self, data: Any) -> bool:
         """
-        保存数据
+        Save Data
         
         Args:
-            data: 要保存的数据
+            data 
             
         Returns:
-            保存是否成功
+            If the method is successful
         """
         pass
     
     @abstractmethod
     async def load(self, **kwargs) -> Any:
         """
-        加载数据
+        Load Data
         
         Args:
-            **kwargs: 加载参数
+            **kwargs: Loaded parameters
             
         Returns:
-            加载的数据
+            Loaded Data
         """
         pass
