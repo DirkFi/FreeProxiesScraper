@@ -17,6 +17,8 @@ logging.basicConfig(
 logger = logging.getLogger("NBA_Scraper")
 
 # 自定义NBA团队数据解析函数
+
+
 def parse_team_data(soup: BeautifulSoup, year: int) -> List[Dict[str, Any]]:
     """解析 NBA 团队数据（同步版）"""
     team_data: List[Dict[str, Any]] = []
@@ -122,34 +124,32 @@ def my_custom_parse_function(soup: BeautifulSoup, url: Optional[str] = None) -> 
         return []
 
 # 主函数
+
+
 async def main():
+    # TODO: 修改save逻辑
     # 定义要爬取的URL
     # 团队数据URL (2020-2025)
-    team_urls = [f"https://www.basketball-reference.com/leagues/NBA_{year}.html" 
+    team_urls = [f"https://www.basketball-reference.com/leagues/NBA_{year}.html"
                  for year in range(2020, 2026)]
-    
+
     # 球员数据URL (各队2025赛季)
     TEAMS = ['BOS']
-    player_urls = [f"https://www.basketball-reference.com/teams/{team}/2025.html" 
-                  for team in TEAMS]
+    player_urls = [f"https://www.basketball-reference.com/teams/{team}/2025.html"
+                   for team in TEAMS]
     # 创建爬虫
-    scraper = HttpScraper(parse_func=my_custom_parse_function, save_file='team_data.csv', 
-                          check_url="https://www.basketball-reference.com",
-                          config={
-                            'retry_times': 5,
-                            'retry_delay': 2,
-                            'timeout': 10
-    })
-    
+    scraper = HttpScraper(parse_func=my_custom_parse_function, save_file='team_data.csv',
+                          check_url="https://www.basketball-reference.com",)
+
     player_storage = CsvStorage('player_data.csv')
-    
+
     logger.info("开始爬取NBA团队数据...")
     team_results = []
     #
     # 团队数据爬取
     all_teams = await scraper.get_parsed_data(team_urls)
     if all_teams:
-        await scraper.storage.save(all_teams)
+        await scraper.save(all_teams)
 
     # 切换到球员数据存储
     scraper.set_storage(player_storage)
@@ -159,7 +159,7 @@ async def main():
     try:
         all_players = await scraper.get_parsed_data(urls=player_urls)
         if all_players:
-            await player_storage.save(all_players)
+            await scraper.save(all_players, "new_method.csv")
             scraper.logger.info(f"共保存球员数据 {len(all_players)} 条")
     finally:
         # ▶ 保证 session 会被关闭

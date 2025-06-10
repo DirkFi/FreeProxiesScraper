@@ -2,7 +2,7 @@ import aiohttp
 import asyncio
 import logging
 from bs4 import BeautifulSoup
-from typing import List
+from typing import List, Optional
 
 from .proxy_provider import ProxyProvider
 from ..utils.user_agent import UserAgentManager

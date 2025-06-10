@@ -1,4 +1,35 @@
 year,name,wins,losses,Margin_of_Victory,True_Shooting_Percentage,Simple_Rating_System
+2025,Oklahoma City Thunder,68,14,12.87,.593,12.70
+2025,Boston Celtics,61,21,9.11,.591,8.28
+2025,Cleveland Cavaliers,64,18,9.54,.607,8.81
+2025,Minnesota Timberwolves,49,33,5.00,.588,5.15
+2025,Los Angeles Clippers,50,32,4.66,.589,4.84
+2025,Memphis Grizzlies,48,34,4.85,.588,4.79
+2025,Houston Rockets,52,30,4.51,.553,4.97
+2025,New York Knicks,51,31,4.10,.589,3.59
+2025,Denver Nuggets,50,32,3.89,.604,3.97
+2025,Golden State Warriors,48,34,3.30,.568,3.56
+2025,Milwaukee Bucks,48,34,2.48,.598,2.12
+2025,Indiana Pacers,50,32,2.23,.594,1.68
+2025,Detroit Pistons,44,38,1.90,.580,1.73
+2025,Los Angeles Lakers,50,32,1.22,.593,1.45
+2025,Miami Heat,37,45,0.56,.576,0.11
+2025,Sacramento Kings,40,42,0.48,.582,0.58
+2025,Orlando Magic,41,41,-0.12,.550,-0.70
+2025,Atlanta Hawks,40,42,-1.13,.579,-1.41
+2025,Dallas Mavericks,39,43,-1.20,.583,-0.74
+2025,Chicago Bulls,39,43,-1.56,.585,-1.83
+2025,San Antonio Spurs,34,48,-2.76,.575,-2.45
+2025,Portland Trail Blazers,36,46,-2.98,.555,-2.67
+2025,Phoenix Suns,36,46,-3.00,.595,-2.55
+2025,Toronto Raptors,30,52,-4.29,.553,-4.40
+2025,Philadelphia 76ers,24,58,-6.23,.563,-6.29
+2025,Brooklyn Nets,26,56,-7.11,.552,-6.95
+2025,Utah Jazz,17,65,-9.34,.568,-8.51
+2025,Charlotte Hornets,19,63,-9.11,.537,-9.10
+2025,New Orleans Pelicans,21,61,-9.43,.552,-8.59
+2025,Washington Wizards,18,64,-12.44,.546,-12.14
+2025,League Average,,,0.00,.576,0.00
 2020,Milwaukee Bucks,56,17,10.08,.583,9.41
 2020,Boston Celtics,48,24,6.31,.570,5.83
 2020,Los Angeles Clippers,49,23,6.44,.577,6.66
