@@ -588,3 +588,189 @@ year,name,wins,losses,Margin_of_Victory,True_Shooting_Percentage,Simple_Rating_S
 2025,New Orleans Pelicans,21,61,-9.43,.552,-8.59
 2025,Washington Wizards,18,64,-12.44,.546,-12.14
 2025,League Average,,,0.00,.576,0.00
+2020,Milwaukee Bucks,56,17,10.08,.583,9.41
+2020,Boston Celtics,48,24,6.31,.570,5.83
+2020,Los Angeles Clippers,49,23,6.44,.577,6.66
+2020,Toronto Raptors,53,19,6.24,.574,5.97
+2020,Los Angeles Lakers,52,19,5.79,.573,6.28
+2020,Dallas Mavericks,43,32,4.95,.581,4.87
+2020,Miami Heat,44,29,2.95,.587,2.59
+2020,Houston Rockets,44,28,2.96,.578,3.13
+2020,Utah Jazz,44,28,2.47,.585,2.52
+2020,Philadelphia 76ers,43,30,2.38,.566,2.25
+2020,Denver Nuggets,46,27,2.11,.567,2.35
+2020,Indiana Pacers,45,28,1.96,.565,1.63
+2020,Oklahoma City Thunder,44,28,1.99,.573,2.33
+2020,Phoenix Suns,34,39,0.22,.576,0.56
+2020,Brooklyn Nets,35,37,-0.57,.554,-1.01
+2020,Orlando Magic,33,40,-1.01,.544,-0.93
+2020,San Antonio Spurs,32,39,-1.11,.572,-0.65
+2020,Memphis Grizzlies,34,39,-1.07,.561,-0.91
+2020,Portland Trail Blazers,35,39,-1.15,.570,-0.61
+2020,New Orleans Pelicans,30,42,-1.29,.568,-0.55
+2020,Sacramento Kings,31,41,-2.04,.566,-1.59
+2020,Chicago Bulls,22,43,-3.08,.547,-4.00
+2020,Detroit Pistons,20,46,-3.56,.561,-4.38
+2020,Minnesota Timberwolves,19,45,-4.30,.551,-4.02
+2020,Washington Wizards,25,47,-4.67,.562,-5.24
+2020,New York Knicks,21,45,-6.45,.531,-6.72
+2020,Charlotte Hornets,23,42,-6.75,.539,-7.03
+2020,Atlanta Hawks,20,47,-7.97,.554,-7.71
+2020,Cleveland Cavaliers,19,46,-7.89,.553,-7.77
+2020,Golden State Warriors,15,50,-8.71,.540,-8.12
+2020,League Average,,,0.00,.565,0.00
+2021,Utah Jazz,52,20,9.25,.597,8.97
+2021,Los Angeles Clippers,47,25,6.18,.599,6.02
+2021,Phoenix Suns,51,21,5.82,.597,5.67
+2021,Milwaukee Bucks,46,26,5.89,.593,5.57
+2021,Philadelphia 76ers,49,23,5.58,.579,5.28
+2021,Denver Nuggets,47,25,4.93,.588,4.82
+2021,Brooklyn Nets,48,24,4.50,.610,4.24
+2021,Los Angeles Lakers,42,30,2.79,.569,2.77
+2021,Dallas Mavericks,42,30,2.26,.582,2.26
+2021,New York Knicks,41,31,2.31,.559,2.13
+2021,Atlanta Hawks,41,31,2.32,.581,2.14
+2021,Portland Trail Blazers,42,30,1.79,.577,1.81
+2021,Boston Celtics,36,36,1.46,.574,1.32
+2021,Golden State Warriors,39,33,1.06,.583,1.10
+2021,Memphis Grizzlies,38,34,1.03,.560,1.07
+2021,Miami Heat,40,32,0.03,.581,-0.06
+2021,Indiana Pacers,34,38,-0.04,.575,-0.13
+2021,New Orleans Pelicans,31,41,-0.29,.570,-0.20
+2021,Toronto Raptors,27,45,-0.47,.567,-0.54
+2021,Chicago Bulls,31,41,-0.89,.575,-0.94
+2021,San Antonio Spurs,33,39,-1.74,.554,-1.58
+2021,Washington Wizards,34,38,-1.83,.569,-1.85
+2021,Charlotte Hornets,33,39,-1.93,.564,-1.94
+2021,Sacramento Kings,31,41,-3.68,.578,-3.45
+2021,Detroit Pistons,20,52,-4.47,.556,-4.38
+2021,Minnesota Timberwolves,23,49,-5.56,.555,-5.25
+2021,Houston Rockets,17,55,-7.90,.553,-7.50
+2021,Cleveland Cavaliers,22,50,-8.44,.543,-8.19
+2021,Orlando Magic,21,51,-9.31,.527,-9.02
+2021,Oklahoma City Thunder,22,50,-10.64,.539,-10.13
+2021,League Average,,,0.00,.572,0.00
+2022,Boston Celtics,51,31,7.28,.578,7.02
+2022,Phoenix Suns,64,18,7.50,.581,6.94
+2022,Utah Jazz,49,33,6.04,.589,5.67
+2022,Memphis Grizzlies,56,26,5.68,.553,5.37
+2022,Golden State Warriors,53,29,5.54,.582,5.52
+2022,Miami Heat,53,29,4.45,.584,4.23
+2022,Dallas Mavericks,52,30,3.30,.572,3.12
+2022,Milwaukee Bucks,51,31,3.35,.580,3.22
+2022,Philadelphia 76ers,51,31,2.61,.578,2.57
+2022,Minnesota Timberwolves,46,36,2.63,.573,2.53
+2022,Denver Nuggets,48,34,2.30,.590,2.16
+2022,Toronto Raptors,48,34,2.29,.543,2.38
+2022,Cleveland Cavaliers,44,38,2.12,.571,2.04
+2022,Atlanta Hawks,43,39,1.56,.581,1.55
+2022,Brooklyn Nets,44,38,0.78,.576,0.82
+2022,Charlotte Hornets,43,39,0.44,.572,0.53
+2022,San Antonio Spurs,34,48,0.12,.556,0.02
+2022,Los Angeles Clippers,42,40,0.02,.564,0.09
+2022,New York Knicks,37,45,-0.12,.550,-0.01
+2022,Chicago Bulls,46,36,-0.39,.579,-0.38
+2022,New Orleans Pelicans,36,46,-0.99,.557,-0.84
+2022,Los Angeles Lakers,33,49,-3.05,.567,-3.08
+2022,Washington Wizards,35,47,-3.38,.568,-3.23
+2022,Indiana Pacers,25,57,-3.48,.564,-3.26
+2022,Sacramento Kings,30,52,-5.46,.561,-5.26
+2022,Detroit Pistons,23,59,-7.72,.533,-7.36
+2022,Orlando Magic,22,60,-8.00,.538,-7.67
+2022,Oklahoma City Thunder,24,58,-8.10,.530,-7.90
+2022,Houston Rockets,20,62,-8.48,.565,-8.26
+2022,Portland Trail Blazers,27,55,-8.88,.550,-8.55
+2022,League Average,,,0.00,.566,0.00
+2023,Boston Celtics,57,25,6.52,.600,6.38
+2023,Cleveland Cavaliers,51,31,5.38,.590,5.23
+2023,Philadelphia 76ers,54,28,4.32,.608,4.37
+2023,Memphis Grizzlies,51,31,3.94,.570,3.60
+2023,Milwaukee Bucks,58,24,3.63,.583,3.61
+2023,Denver Nuggets,53,29,3.33,.601,3.04
+2023,New York Knicks,47,35,2.93,.577,2.99
+2023,Sacramento Kings,48,34,2.65,.608,2.30
+2023,Phoenix Suns,45,37,2.07,.570,2.08
+2023,New Orleans Pelicans,42,40,1.89,.582,1.63
+2023,Golden State Warriors,44,38,1.80,.600,1.66
+2023,Toronto Raptors,41,41,1.48,.555,1.59
+2023,Chicago Bulls,40,42,1.29,.587,1.37
+2023,Oklahoma City Thunder,40,42,1.09,.570,0.96
+2023,Brooklyn Nets,45,37,0.85,.598,1.03
+2023,Los Angeles Lakers,43,39,0.57,.582,0.43
+2023,Los Angeles Clippers,44,38,0.50,.588,0.31
+2023,Atlanta Hawks,41,41,0.29,.579,0.32
+2023,Dallas Mavericks,38,44,0.07,.599,-0.14
+2023,Minnesota Timberwolves,42,40,-0.04,.592,-0.22
+2023,Miami Heat,44,38,-0.32,.574,-0.13
+2023,Utah Jazz,37,45,-0.94,.584,-1.03
+2023,Washington Wizards,35,47,-1.21,.585,-1.06
+2023,Orlando Magic,34,48,-2.56,.573,-2.39
+2023,Indiana Pacers,35,47,-3.18,.581,-2.91
+2023,Portland Trail Blazers,33,49,-4.01,.589,-3.96
+2023,Charlotte Hornets,27,55,-6.24,.550,-5.89
+2023,Houston Rockets,22,60,-7.85,.554,-7.62
+2023,Detroit Pistons,17,65,-8.22,.561,-7.73
+2023,San Antonio Spurs,22,60,-10.04,.554,-9.82
+2023,League Average,,,0.00,.581,0.00
+2024,Boston Celtics,64,18,11.34,.609,10.75
+2024,Oklahoma City Thunder,57,25,7.41,.608,7.36
+2024,Minnesota Timberwolves,56,26,6.45,.594,6.39
+2024,Denver Nuggets,57,25,5.26,.589,5.23
+2024,New York Knicks,50,32,4.59,.574,4.36
+2024,New Orleans Pelicans,49,33,4.41,.591,4.46
+2024,Los Angeles Clippers,51,31,3.28,.599,3.41
+2024,Philadelphia 76ers,47,35,3.05,.574,2.51
+2024,Phoenix Suns,49,33,3.06,.603,3.08
+2024,Indiana Pacers,47,35,3.05,.606,2.75
+2024,Golden State Warriors,46,36,2.61,.586,2.77
+2024,Milwaukee Bucks,49,33,2.62,.601,2.44
+2024,Cleveland Cavaliers,48,34,2.41,.586,1.98
+2024,Dallas Mavericks,50,32,2.21,.592,2.30
+2024,Orlando Magic,47,35,2.02,.577,1.48
+2024,Miami Heat,46,36,1.76,.578,1.10
+2024,Sacramento Kings,46,36,1.74,.582,2.29
+2024,Houston Rockets,41,41,1.12,.565,1.24
+2024,Los Angeles Lakers,47,35,0.60,.601,1.07
+2024,Chicago Bulls,39,43,-1.44,.568,-1.77
+2024,Atlanta Hawks,36,46,-2.18,.576,-2.38
+2024,Brooklyn Nets,32,50,-2.89,.561,-3.02
+2024,Utah Jazz,31,51,-4.89,.579,-4.22
+2024,San Antonio Spurs,22,60,-6.49,.563,-5.80
+2024,Toronto Raptors,25,57,-6.44,.566,-6.45
+2024,Memphis Grizzlies,27,55,-7.00,.543,-6.57
+2024,Detroit Pistons,14,68,-9.11,.562,-9.06
+2024,Washington Wizards,15,67,-9.29,.567,-9.29
+2024,Portland Trail Blazers,21,61,-9.02,.539,-8.29
+2024,Charlotte Hornets,21,61,-10.24,.560,-10.12
+2024,League Average,,,0.00,.580,0.00
+2025,Oklahoma City Thunder,68,14,12.87,.593,12.70
+2025,Boston Celtics,61,21,9.11,.591,8.28
+2025,Cleveland Cavaliers,64,18,9.54,.607,8.81
+2025,Minnesota Timberwolves,49,33,5.00,.588,5.15
+2025,Los Angeles Clippers,50,32,4.66,.589,4.84
+2025,Memphis Grizzlies,48,34,4.85,.588,4.79
+2025,Houston Rockets,52,30,4.51,.553,4.97
+2025,New York Knicks,51,31,4.10,.589,3.59
+2025,Denver Nuggets,50,32,3.89,.604,3.97
+2025,Golden State Warriors,48,34,3.30,.568,3.56
+2025,Milwaukee Bucks,48,34,2.48,.598,2.12
+2025,Indiana Pacers,50,32,2.23,.594,1.68
+2025,Detroit Pistons,44,38,1.90,.580,1.73
+2025,Los Angeles Lakers,50,32,1.22,.593,1.45
+2025,Miami Heat,37,45,0.56,.576,0.11
+2025,Sacramento Kings,40,42,0.48,.582,0.58
+2025,Orlando Magic,41,41,-0.12,.550,-0.70
+2025,Atlanta Hawks,40,42,-1.13,.579,-1.41
+2025,Dallas Mavericks,39,43,-1.20,.583,-0.74
+2025,Chicago Bulls,39,43,-1.56,.585,-1.83
+2025,San Antonio Spurs,34,48,-2.76,.575,-2.45
+2025,Portland Trail Blazers,36,46,-2.98,.555,-2.67
+2025,Phoenix Suns,36,46,-3.00,.595,-2.55
+2025,Toronto Raptors,30,52,-4.29,.553,-4.40
+2025,Philadelphia 76ers,24,58,-6.23,.563,-6.29
+2025,Brooklyn Nets,26,56,-7.11,.552,-6.95
+2025,Utah Jazz,17,65,-9.34,.568,-8.51
+2025,Charlotte Hornets,19,63,-9.11,.537,-9.10
+2025,New Orleans Pelicans,21,61,-9.43,.552,-8.59
+2025,Washington Wizards,18,64,-12.44,.546,-12.14
+2025,League Average,,,0.00,.576,0.00
