@@ -1,0 +1,15 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+reqwest = { version = "0.12", features = ["json", "gzip", "socks"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+pyo3 = { version = "0.18", features = ["extension-module"] }
+pyo3-asyncio = { version = "0.18", features = ["tokio-runtime"] }
+serde = { version = "1.0", features = ["derive"] }
+scraper = "0.14"
